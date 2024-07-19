@@ -16,7 +16,7 @@
 			</div>
 			<div class="col-6">
 				<h2>Add a new To-Do Item</h2>
-				<form action="#" th:action="@{/todo}" th:object="${todoItem}" method="POST"></form>
+				<form action="#" th:action="@{/todo}" th:object="${todoItem}" method="POST">
 				<div class="form-group">
 					<label for="description">Descripcion</label>
 					<input class="form-control"
@@ -30,6 +30,7 @@
                         <i class="bi bi-plus-square-fill"></i> Add To-Do
                     </button>
 				</div>
+				</form>
 			</div>
 		</div>
 	</div>
