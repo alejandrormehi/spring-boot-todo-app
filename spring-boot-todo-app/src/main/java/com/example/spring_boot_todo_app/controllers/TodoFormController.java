@@ -47,7 +47,7 @@ public class TodoFormController {
 	@PostMapping("/todo")
 	public String createTodoItem(@Valid TodoItem todoItem, BindingResult result, Model model) {
 		if (result.hasErrors()) {
-			model.addAttribute("users", userService.getAllUsers()); // Agregar usuarios al modelo en caso de error
+			model.addAttribute("users", userService.getAllUsers()); 
 			return "new-todo-item";
 		}
 		// Asigna el usuario seleccionado al todoItem
@@ -71,7 +71,7 @@ public class TodoFormController {
 	
 	
 	
-
+//BORRA todo
 	@GetMapping("/delete/{id}")
 	public String deleteTodoItem(@PathVariable("id") Long id, Model model) {
 		TodoItem todoItem = todoItemService.getById(id)

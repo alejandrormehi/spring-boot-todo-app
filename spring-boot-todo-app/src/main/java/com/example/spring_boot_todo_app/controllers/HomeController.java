@@ -30,7 +30,7 @@ public class HomeController {
 	    modelAndView.addObject("todoItems", allTodos);
 	    
 	    
-	 // Filtrar elementos si se proporcionan parámetros
+	 // Filtra elementos si se proporcionan parámetros
         if (username != null || title != null) {
             List<TodoItem> filteredTodos = todoItemService.filterTodoItems(username, title);
             modelAndView.addObject("filteredTodos", filteredTodos);
