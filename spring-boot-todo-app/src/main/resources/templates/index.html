@@ -1,54 +1,107 @@
 <!DOCTYPE HTML>
 <html xmlns:th="http://www.thymeleaf.org">
+
 <head>
 	<meta charset="utf-8">
 	<meta http-equiv="X-UA-Compatible" content="IE=edge">
 	<meta name="viewport" content="width=device-width, initial-scale=1">
-	<link th:rel="stylesheet" th:href="@{/webjars/bootstrap/5.2.2/css/bootstrap.min.css}"/>
-</head>	
+	<link th:rel="stylesheet" th:href="@{/webjars/bootstrap/5.2.2/css/bootstrap.min.css}" />
+</head>
+
 <body>
 	<div class="container">
 		<h1>Spring Boot To-Do Aplicacion</h1>
-		<hr/>
-		
+		<hr />
+
+		<h3>Filtrar:</h3>
+
+		<form action="/filter" method="get">
+		          <input type="text" name="username" placeholder="Por Username">
+		          <input type="text" name="title" placeholder="Por Title">
+		          <button type="submit" class="btn btn-outline-success">
+		              <i class="bi bi-plus-square-fill"></i> Filtrar
+		          </button>
+		      </form>
+		<h2>Filtered To-do's</h2>
 		<table class="table table-bordered table-striped">
 			<thead>
-			<tr>
-				<th>Actions</th>
-				<th>Id</th>
-				<th>Description</th>
-				<th>Is Complete</th>
-				<th>Created At</th>
-				<th>Updated At</th>	
-			</tr>
+				<tr>
+					<th>Actions</th>
+					<th>User name</th>
+					<th>Id</th>
+					<th>Title</th>
+					<th>Is Complete</th>
+					<th>Created At</th>
+					<th>Updated At</th>
+				</tr>
 			</thead>
-			
+
+			<tbody>
+				<tr th:each="todo : ${filteredTodos}">
+					<td>
+						<div class="btn btn-group-sm" role="group">
+							<a class="btn btn-info" th:href="@{/edit/{id}(id=${todo.id})}">
+								<i class="bi bi-pencil-fill"></i> Edit</a>
+							<a class="btn btn-danger" th:href="@{/delete/{id}(id=${todo.id})}">
+								<i class="bi bi-trash-fill"></i> Delete</a>
+						</div>
+					</td>
+					<td th:text="${todo.user != null ? todo.user.username : 'N/A'}"></td>
+					<td th:text="${todo.id}"></td>
+					<td th:text="${todo.title}"></td>
+					<td>
+						<span th:if="${todo.isComplete}" th:text="'Yes'"></span>
+						<span th:unless="${todo.isComplete}" th:text="'No'"></span>
+					</td>
+					<td th:text="${todo.createdAt}">item_created_date</td>
+					<td th:text="${todo.updatedAt}">item_modified_date</td>
+				</tr>
 			</tbody>
+		</table>
+
+
+		<h1>All To-do's</h1>
+		<table class="table table-bordered table-striped">
+			<thead>
+				<tr>
+					<th>Actions</th>
+					<th>User name</th>
+					<th>Id</th>
+					<th>Title</th>
+					<th>Is Complete</th>
+					<th>Created At</th>
+					<th>Updated At</th>
+				</tr>
+			</thead>
+
+			<tbody>
 				<tr th:each="item : ${todoItems}">
 					<td>
 						<div class="btn btn-group-sm" role="group">
-						    <a class="btn btn-info" th:href="@{/edit/{id}(id=${item.id})}">
-						       <i class="bi bi-pencil-fill"></i> Edit</a>
-						    <a class="btn btn-danger" th:href="@{/delete/{id}(id=${item.id})}">
-						       <i class="bi bi-trash-fill"></i> Delete</a>
+							<a class="btn btn-info" th:href="@{/edit/{id}(id=${item.id})}">
+								<i class="bi bi-pencil-fill"></i> Edit</a>
+							<a class="btn btn-danger" th:href="@{/delete/{id}(id=${item.id})}">
+								<i class="bi bi-trash-fill"></i> Delete</a>
 						</div>
 					</td>
+					<td th:text="${item.user != null ? item.user.username : 'N/A'}"></td>
 					<td th:text="${item.id}"></td>
-					<td th:text="${item.description}"></td>
+					<td th:text="${item.title}"></td>
 					<td>
 						<span th:if="${item.isComplete} == true" th:text="Yes"></span>
 						<span th:unless="${item.isComplete} == true" th:text="No"></span>
 					</td>
 					<td th:text="${item.createdAt}">item_created_date</td>
 					<td th:text="${item.updatedAt}">item_modified_date</td>
-
+				</tr>
 			</tbody>
 		</table>
-			
+
 		<p><a class="btn btn-outline-success" href="/create-todo">
-			<i class="bi bi-plus-square-fill"></i> Create a To-Do</a>
-		</p>			
+				<i class="bi bi-plus-square-fill"></i> Create a To-Do</a>
+		</p>
 	</div>
 	<script th:src="@{/webjars/bootstrap/5.2.2/js/bootstrap.min.js}"></script>
-</body>	
+</body>
+
 </html>
